@@ -1,0 +1,56 @@
+{
+    "resource": "/v1/posts",
+    "path": "/v1/posts",
+    "httpMethod": "POST",
+    "headers": {
+      "Authorization": "Bearer ...",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Encoding": "gzip, deflate",
+      "Accept-Language": "en-us",
+      "cache-control": "max-age=0",
+      "CloudFront-Forwarded-Proto": "https",
+      "CloudFront-Is-Desktop-Viewer": "true",
+      "CloudFront-Is-Mobile-Viewer": "false",
+      "CloudFront-Is-SmartTV-Viewer": "false",
+      "CloudFront-Is-Tablet-Viewer": "false",
+      "CloudFront-Viewer-Country": "US",
+      "Cookie": "...",
+      "Host": "...",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) ...",
+      "Via": "2.0 ... (CloudFront)",
+      "X-Amz-Cf-Id": "...",
+      "X-Amzn-Trace-Id": "...",
+      "X-Forwarded-For": "xxx.xxx.xxx.xxx",
+      "X-Forwarded-Port": "443",
+      "X-Forwarded-Proto": "https"
+    },
+    "queryStringParameters": {
+      "qs1": "q1"
+    },
+    "stageVariables": null,
+    "requestContext": {
+      "accountId": "...",
+      "resourceId": "...",
+      "stage": "prod",
+      "requestId": "...",
+      "identity": {
+        "cognitoIdentityPoolId": null,
+        "accountId": null,
+        "cognitoIdentityId": null,
+        "caller": null,
+        "apiKey": null,
+        "sourceIp": "xxx.xxx.xxx.xxx",
+        "accessKey": null,
+        "cognitoAuthenticationType": null,
+        "cognitoAuthenticationProvider": null,
+        "userArn": null,
+        "userAgent": "...",
+        "user": null
+      },
+      "resourcePath": "/v1/posts",
+      "httpMethod": "POST",
+      "apiId": "..."
+    },
+    "body": "{ \"advisorName\":\"Adult Bikes 15761114675441\",\"submittedFormData\":[{\"questionText\":\"What's your Email address\",\"answers\":[\"visitor@gmail.com\"]},{\"questionText\":\"First Name\",\"answers\":[\"Jane\"]},{\"questionText\":\"Last Name\",\"answers\":[\"Johnson\"]},{\"questionText\":\"Have you got kids over 18?\",\"answers\":[\"I've got a daughter\",\"I've got a son\"]},{\"questionText\":\"What is the best way to get in touch with you?\",\"answers\":[]}],\"questionsFlow\":[{\"questionText\":\"How do you see yuorself typically using your bike?\",\"answers\":[\"Leisure\"]},{\"questionText\":\"How tall is the person who would be riding the bike?\",\"answers\":[\"165-175 cm\"]}],\"recommendations\":[{\"sku\":\"A0013\",\"name\":\"Impressive Bike\",\"price\":199},{\"sku\":\"A0029\",\"name\":\"Brilliant Bike\",\"price\":449},{\"sku\":\"A0004\",\"name\":\"Breathtaking Bike\",\"price\":225}]}",
+    "isBase64Encoded": false
+}

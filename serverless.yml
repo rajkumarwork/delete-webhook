@@ -1,0 +1,77 @@
+service: contentful-webhook
+
+custom:
+  account: ${opt:account, 'nmo-nonprod'}
+  region: ${opt:region, 'us-west-2'}
+  stage: ${opt:stage, 'dev'}
+
+  tags:
+    Application: NMO
+    Owner: nmo_content_usertesting@neimanmarcus.com
+    Environment: ${self:custom.stage}
+    Version: ${file(metadata.json):build.version, 'na'}
+    GitHash: ${file(metadata.json):build.gitHash, 'na'}
+    BuildDate: ${file(metadata.json):build.date, 'na'}
+    JenkinsJob: ${file(metadata.json):build.jenkins.job, 'na'}
+    JenkinsBuild: ${file(metadata.json):build.jenkins.build, 'na'}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${self:custom.stage}
+  region: ${self:custom.region}
+  tags: ${self:custom.tags}
+  stackTags: ${self:custom.tags}
+
+  deploymentBucket:
+    name: sls-deploy-${self:custom.account}-${self:custom.region}
+    serverSideEncryption: AES256
+
+  environment:
+    SERVICE_NAME: ${self:service}
+    STAGE: ${self:custom.stage}
+    REDIS_URL: ${ssm:/nmo/${self:custom.stage}/elasticache/redis~true}
+  vpc:
+    securityGroupIds:
+      - { "Fn::GetAtt": [ ContentfulWebhookSG, GroupId ] }
+    subnetIds:
+      - ${ssm:/${self:service}/${self:custom.stage}/vpc.app.subnet.a}
+      - ${ssm:/${self:service}/${self:custom.stage}/vpc.app.subnet.b}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - SSM:GetParameter
+      Resource:
+        - arn:aws:ssm:${self:custom.region}:#{AWS::AccountId}:parameter/${self:service}/*
+
+    - Effect: Allow
+      Action:
+        - "KMS:Decrypt"
+      Resource:
+        - arn:aws:kms:${self:custom.region}:#{AWS::AccountId}:alias/aws/ssm
+  apiKeys:
+    - ${self:service}-${self:custom.stage}-availability
+
+functions:
+  deleteKey:
+    handler: src/handler.deleteKey
+    events:
+      - http:
+          path: 'v1/{proxy+}'
+          cors: true
+          method: post
+          private: true
+    provisionedConcurrency: ${ssm:/${self:service}/${self:custom.stage}/scaleConfig.provisionedConcurrency}
+    concurrencyAutoscaling: ${ssm:/${self:service}/${self:custom.stage}/scaleConfig.concurrencyAutoscaling}
+
+resources: ${file(template.yml)}
+
+package:
+  excludeDevDependencies: false
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-plugin-typescript
+  - serverless-plugin-include-dependencies
+  - serverless-provisioned-concurrency-autoscaling

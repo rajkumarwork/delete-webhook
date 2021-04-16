@@ -1,0 +1,46 @@
+{
+  "name": "contentful-webhook",
+  "version": "1.0.0",
+  "description": "Sample Serverless API using Lambda API",
+  "engines": {
+    "node": ">= 12.13 <13"
+  },
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "serverless",
+    "api",
+    "lambda",
+    "aws",
+    "restful"
+  ],
+  "author": "Hemanth Jayaraman <hemanth_jayaraman@neimanmarcus.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.61",
+    "@types/bunyan": "^1.8.6",
+    "@types/lodash": "^4.14.168",
+    "serverless": "^1.60.5",
+    "serverless-plugin-include-dependencies": "^4.0.0",
+    "serverless-plugin-typescript": "1.1.7",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.39",
+    "@types/redis": "^2.8.27",
+    "aws-sdk": "^2.719.0",
+    "bunyan": "^1.8.14",
+    "execution-time": "^1.4.1",
+    "lambda-api": "^0.6.0",
+    "lodash": "^4.17.20",
+    "redis": "^3.0.2",
+    "serverless-provisioned-concurrency-autoscaling": "^1.0.2"
+  }
+}
